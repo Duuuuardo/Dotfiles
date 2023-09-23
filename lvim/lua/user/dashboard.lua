@@ -3,61 +3,6 @@ local kind = require("user.kind")
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "custom"
 
-local header = {
-  type = "text",
-  val = require("user.banners").dashboard(),
-  opts = {
-    position = "center",
-    hl = "Comment",
-  },
-}
-
-local plugins = ""
-local date = ""
-if vim.fn.has "linux" == 1 or vim.fn.has "mac" == 1 then
-  -- -- this no longer works with packer, need to modify to work with lazy.nvim
-  -- local handle = io.popen 'fd -d 2 . $HOME"/.local/share/lunarvim/site/pack/packer" | grep pack | wc -l | tr -d "\n" '
-  -- plugins = handle:read "*a"
-  -- handle:close()
-
-  local thingy = io.popen 'echo "$(date +%a) $(date +%d) $(date +%b)" | tr -d "\n"'
-  date = thingy:read "*a"
-  thingy:close()
-  plugins = plugins:gsub("^%s*(.-)%s*$", "%1")
-else
-  plugins = "N/A"
-  date = "  whatever "
-end
-
-local plugin_count = {
-  type = "text",
-  val = "└─ " .. kind.cmp_kind.Module .. " " .. plugins .. " plugins in total ─┘",
-  opts = {
-    position = "center",
-    hl = "String",
-  },
-}
-
-local heading = {
-  type = "text",
-  val = "┌─ " .. kind.icons.calendar .. " Today is " .. date .. " ─┐",
-  opts = {
-    position = "center",
-    hl = "String",
-  },
-}
-
-local fortune = require "alpha.fortune" ()
--- fortune = fortune:gsub("^%s+", ""):gsub("%s+$", "")
-local footer = {
-  type = "text",
-  val = fortune,
-  opts = {
-    position = "center",
-    hl = "Comment",
-    hl_shortcut = "Comment",
-  },
-}
 
 local function button(sc, txt, keybind)
   local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
@@ -100,7 +45,6 @@ local buttons = {
     ),
     button("r", " " .. kind.icons.clock .. " Recents", ":Telescope oldfiles<CR>"),
     button("c", " " .. kind.icons.settings .. " Config", ":e ~/.config/lvim/config.lua<CR>"),
-    button("C", " " .. kind.cmp_kind.Color .. " Colorscheme Config", ":e ~/.config/lvim/lua/user/colorscheme.lua<CR>"),
     button("q", " " .. kind.icons.exit .. " Quit", ":q<CR>"),
   },
   opts = {
@@ -109,17 +53,13 @@ local buttons = {
 }
 
 local section = {
-  header = header,
   buttons = buttons,
-  plugin_count = plugin_count,
-  heading = heading,
-  footer = footer,
 }
 
 lvim.builtin.alpha.custom = {
   config = {
     layout = {
-      { type = "padding", val = 1 },
+      { type = "padding", val = 12 },
       section.header,
       { type = "padding", val = 2 },
       section.heading,
