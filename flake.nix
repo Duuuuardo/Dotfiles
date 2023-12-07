@@ -26,38 +26,7 @@
   
   outputs = { self, nixpkgs, ... } @ attrs: { 
 
-    nixosConfigurations = { 
-      traveler =
-      let system = "x86_64-linux";
-      in nixpkgs.lib.nixosSystem {
-	specialArgs = {
-          username = "eduardo";
-          hostname = "traveler";
-          hyprlandConfig = "laptop";
-          nvidia_bool = "enabled";
-	  inherit system;
-        } // attrs;        
-        modules = [
-          ./.
-          ./modules/virt
-        ];
-      };
-
-      live = 
-      let system = "x86_64-linux";
-      in nixpkgs.lib.nixosSystem {
-        system = system;
-        specialArgs = {
-          username = "nixos";
-          hostname = "live-image";
-          hyprlandConfig = "laptop";
-          nvidia_bool = "disabled";
-          } // attrs;
-          modules = [
-            ./minimal.nix
-          ];
-      }
-    };
+    nixosConfigurations = {};
     templates.default = {
       path = ./.;
       description = "Template";
