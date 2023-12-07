@@ -57,7 +57,6 @@
       } // attrs;        
         modules = [
           ./.
-          ./modules/virtualization
         ];
       };
     };
