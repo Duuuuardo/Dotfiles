@@ -45,7 +45,7 @@
         ];
       };
 
-      virtualmachine = 
+      virtualized = 
       let system = "x86_64-linux";
       in nixpkgs.lib.nixosSystem {
         system = system;
@@ -56,7 +56,7 @@
           nvidia_bool = "disabled";
           } // attrs;
           modules = [
-            ./minimal.nix
+            ./.
           ];
       };
     };
