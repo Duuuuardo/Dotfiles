@@ -5,7 +5,11 @@ with pkgs; [
   cmake
   gnumake
   go
-  nim
+  php
+  rustc
+  bun
+  ruby
+  jdk
   nix-melt
   nix-prefetch-git
   nixpacks

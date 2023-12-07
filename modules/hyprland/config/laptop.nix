@@ -78,7 +78,7 @@ $wI = are ya lost bud
 
 # for all categories, see https://wiki.hyprland.org/configuring/variables/
 input {
-	kb_layout = us
+	kb_layout = br 
 	follow_mouse = 1
 	touchpad {
 		natural_scroll = no

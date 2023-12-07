@@ -3,7 +3,7 @@
   environment.systemPackages = with pkgs; [
     libreoffice-qt
     hunspell
-    hunspellDicts.en_CA
+    hunspellDicts.pt_BR
     hunspellDicts.en_US
   ];
 }

@@ -15,6 +15,10 @@
 	inputs.darwin.follows = "";
     };
 
+    nixvim = {
+      url = "github:duuuuardo/nixvim";
+    };
+
     hyprland = {
       url = "github:hyprwm/hyprland";
     };
@@ -35,14 +39,28 @@
         } // attrs;        
         modules = [
           ./.
-          ./modules/toys
           ./modules/virt
         ];
       };
+
+      live = 
+      let system = "x86_64-linux";
+      in nixpkgs.lib.nixosSystem {
+        system = system;
+        specialArgs = {
+          username = "nixos";
+          hostname = "live-image";
+          hyprlandConfig = "laptop";
+          nvidia_bool = "disabled";
+          } // attrs;
+          modules = [
+            ./minimal.nix
+          ];
+      }
     };
     templates.default = {
       path = ./.;
-      description = "The default template for this flake";
+      description = "Template";
     };
   };
 }

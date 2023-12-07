@@ -2,7 +2,13 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./battery.nix
   ];
+
+  services.xserver = {
+    layout = "br";
+    xkbVariant = "abnt2";
+  };
 
   # ---- System Configurations ----
   # Enable my Lenovo Keyboard

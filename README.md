@@ -1,116 +1,125 @@
-A wise man once said: ` 'There is beauty in simplicity'. ` 
+# NixOS Dotfiles
 
-That man hadn't yet plunged into the depths of `Nix` packaging or beheld the orchestrated complexity of `NixOS`. 
-
-I like simple things, so you may find that there is not all that much complex going on in this repository. I do not build any of my own packages or make extreme modifications to any of the example configurations I have found online that make up this motley crew of `.nix`. What I can say, is that the `main` branch of this configuration is relatively thoroughly tested.  
-
-`Nix` and `NixOS` started as an echo in my mind some several months ago. An internet hooligan that probably didn't even know what they were talking about introduced me to the idea while I was perusing public `dotfiles` and somehow it reverberated. It's evolved into an ever deepening rabbit hole of declaration, stability and reproducibility.
-
-I am not an authority on `Nix` or `NixOS`. I am merely an apprentice, an Alice navigating the wonderland. At least for now.
-
-Was it worth it? ***Oh heavens no sweet child. Turn back now while you still can, you've been warned.***
-
-So anyways. Here's my dots. I hope you like them.
-
-# Eriim's Nixflakes
-
+You will need to `sudo` or `sudo -i` the majority of these commands.
+## Create Installation Media
+1. Flash the minimal image to a USB device from Linux
+`dd if=<nixos-minimal-image.iso> of=/path/to/usb bs=4M conv=fsync`
+2. Boot from the USB on the target device
+## Wireless Networking
+1. Start wpa_supplicant > `systemctl start wpa_supplicant`
+2. Enable a wireless network > `wpa_cli`
 ```
-There are many paths to the top of the mountain, but the view is always the same.
+add_network 0
+set_network 0 ssid "SSID"
+set_netwwork 0 psk "PSK"
+set_network 0 key_mgmt WPA-PSK
+enable_network 0
 ```
+## Partition
+1. `lsblk` - to identify connected drives
+2. Format the disk > `fdisk /dev/path-to-target`
 
-[How to use this repo](docs/usage.md)
+3. Create a new GPT partition table > `g`
+4. Create a new partition > `n`
+5. Create the following structure at minimum
+```
+|-/dev/sda1 efi   > t > 1
+|-/dev/sda2 linux-filesystem 
+|-/dev/sda3 (optional)swap t > 19
+```
+6. Write changes to disk > `w`
+## Format
+1. For EFI > `mkfs.fat -F 32 /dev/sda1`
+2. For Primary > `mkfs.ext4 /dev/sda2`
+3. For swap > `mkswap -L swap /dev/sda3` > `sudo swapon`
+## Encrypted Primary
+1. Format with LUKS > `cryptsetup luksFormat /dev/sda2`
+2. Open with LUKS > `cryptsetup luksOpen /dev/sda2 cryptroot`
+3. Format mapped cryptroot > `mkfs.ext4 -L nixos /dev/mapper/cryptroot`
+## Mounting
+1. Mount the primary partition to `/mnt` > `mount /dev/disk/by-label/nixos /mnt`
+2. Make boot dir > `mkdir -p /mnt/boot`
+3. Mount boot > `mount /dev/sda1 /mnt/boot`
+## Generate configuration
+1. Generate > `nixos-generate-config --root /mnt`
+2. Edit `configuration.nix` > `nano /mnt/etc/nixos/configuration.nix`
 
-[Getting Started with NixOS Minimal](docs/minimal-install.md)
+## Minimal Configuration for wireless networking with wpa_supplicant
+```
+{ config, pkgs, ... }:
+{
+	imports = [ ./hardware-configuration.nix ]
+	
+	boot.loader.systemd-boot.enalbe = true;
+	boot.loader.efi.canTouchEfiVariables = true;
 
-### Flake Structure
-Modules are grouped to be ***almost*** purely *functional* and as a result you will often find both the system configuration and the home-manager configuration in the same place. Not all NixOS users use this paradigm.
+	networking.wireless.enable = true;
+	networking.wireless.interface = [ "interface" ];
+	networking.wireless.userControlled.enable = true;
 
-This repo has become more opinionated over time and now requires passing down variables from the `flake.nix` in order to fetch appropriate modules and packages and eventually theming elements. 
+	users.users.user = {
+		isNormalUser = true;
+		extraGroups = [ "wheel" ];
+		initialPassword = "temp123";	
+	};
+	system.stateVersion = "23.05";
+}
+```
+## Enable swap in hardware-configuration.nix
+```
+swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
+```
+## Install and reboot
+1. Install > `nixos-install`
+2. You will be prompted for a root password afterwards.
+3. Reboot > `reboot`
 
-### Flake Github URLS
+## How to install the dots?
 
-Transparency is cool.
+  ### 1. Fetch the flake template
 
-[nixpkgs: nixos-unstable](https://github.com/NixOS/nixpkgs)
+   ```bash
+   nix flake new -t 'github:erictossell/nixflakes' ./nixflakes && cd nixflakes
+   ```
 
-[home-manager: following nixpkgs](https://github.com/nix-community/home-manager/blob/master/flake.nix)
+   ### 2. Run the build script. 
 
-[agenix: following nixpkgs](https://github.com/ryantm/agenix/blob/main/flake.nix)
+   ```bash
+   sh/build.sh
+   ```
+      
+   a. Enter a new hostname
+   
+   b. Enter a new username
+      
+   c. Y/n for Nvidia usage.
+     
+   d. If you have an existing `hardware-configuration.nix` stored in `/etc/nixos` the script will ask if you would like to import it. If you have not generated one yet it will do so for you and then import it.
+   
+   ### 3. Initialize the git repo and add the changes
+   ```bash
+   git init
+   git add .
+   ```
 
-[hyprland](https://github.com/hyprwm/Hyprland/blob/main/flake.nix)
+   ### 4. Validate the flake imports went okay.
 
-[eriixvim: my nixvim flake](https://github.com/erictossell/eriixvim/blob/main/flake.nix)
+   ```bash
+   nix flake check
+   ```
 
-### Diagrams
+   **If you havent enabled experimental features**
 
-![Flake Structure](docs/screens/FlakeStructure7.png)
+   ```bash
+   nix flake check --extra-experimental-features nix-command --extra-experimental-features flakes
+   ```
+   
+   ### 5. Build the system. 
 
-![Flake Profiles](docs/screens/FlakeProfiles7.png)
-
-## Screenshots
-
-Current 
-------
-![Hyprland](docs/screens/hyprland4.png)
-![Hyprland](docs/screens/hyprland5.png)
-
-October 2023
-------
-![Hyprland](docs/screens/hyprland1.png)
-
-![Hyprland1](docs/screens/hyprland2.png)
-
-![Hyprland3](docs/screens/hyprland3.png)
-
-### My Nixdots Contain Configurations for
-
-#### Core Modules
-- Boot
-- Security Config ([Yubico](https://www.yubico.com/) Authentication)
-  ##### Terminal Module
-  - Editor: [`nvim`](https://neovim.io/), `vim`
-  - Terminals: [`foot`](https://codeberg.org/dnkl/foot), [`alacritty`](https://github.com/alacritty/alacritty), [`wezterm`](https://wezfurlong.org/wezterm/index.html)
-  - Shell: `bash`
-  - [`btop` (Resource Monitoring)](https://github.com/aristocratos/btop)
-  - [`cava` (Music Visualizer)](https://github.com/karlstav/cava)
-  - [`nitch` (sysfetch)](https://github.com/ssleert/nitch)
-
-#### Hyprland
-- [Dotfiles](modules/hyprland/config/)
-- [greetd](modules/hyprland/greetd/default.nix)
-- [mako](modules/hyprland/mako/default.nix)
-- [swaylock](modules/hyprland/swaylock/default.nix)
-- [waybar](modules/hyprland/waybar/default.nix)
-- [wofi](modules/hyprland/wofi/default.nix)
-
-#### Apps
-- [1Password](https://1password.com/)
-- Browsers (Firefox, Chrome, Nyxt)
-- [Discord](https://discord.com)
-- [Obsidian](https://obsidian.md/)
-- [VSCode](https://code.visualstudio.com/)
-
-#### Extra Toys
-- [OBS Studio](https://obsproject.com/) (for screen recording and streaming/sharing screen)
-- Vidya (Lutris, Steam, Wine)
-
-- Virt (Docker, Podman, kvm/qemu)
-
-#### Configurations
-1. Desktop (principium) - 3 monitors
-
-   - WM: [hyprland](https://hyprland.org/)
-   - All core modules + nvidia
-
-2. Laptop (sisyphus) - 1 monitor
-
-   - WM: [hyprland](https://hyprland.org/)
-   - Most core modules (no extra toys)
-
-3. Live Boot Image (live-image)
-
-   - A customized minimal boot example.
-
-[How to use this repo](docs/usage.md)
-
-[Getting Started with NixOS Minimal](docs/minimal-install.md)
+   ```bash
+   sudo nixos-rebuild switch --flake '.#hostname'
+   ```
+   **OR if your `hostname` already matches the hostname specificed in the `flake.nix`.**
+   ```bash
+   sudo nixos-rebuild switch --flake .
+   ```
