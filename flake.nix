@@ -51,7 +51,7 @@
         system = system;
         specialArgs = {
           username = "nixos";
-          hostname = "virtualmachine";
+          hostname = "virtualized";
           hyprlandConfig = "laptop";
           nvidia_bool = "disabled";
           } // attrs;
