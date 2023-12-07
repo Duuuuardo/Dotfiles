@@ -26,7 +26,41 @@
   
   outputs = { self, nixpkgs, ... } @ attrs: { 
 
-    nixosConfigurations = {};
+
+    nixosConfigurations = { 
+ 
+      traveller =
+      let system = "x86_64-linux";
+      in nixpkgs.lib.nixosSystem {
+	specialArgs = {
+          username = "eduardo";
+          hostname = "traveller";
+          hyprlandConfig = "laptop";
+          nvidia_bool = "enabled";
+	  inherit system;
+        } // attrs;        
+        modules = [
+          ./.
+          ./modules/virtualization
+        ];
+      };
+
+      virtualmachine = 
+      let system = "x86_64-linux";
+      in nixpkgs.lib.nixosSystem {
+        system = system;
+        specialArgs = {
+          username = "nixos";
+          hostname = "virtualmachine";
+          hyprlandConfig = "laptop";
+          nvidia_bool = "disabled";
+          } // attrs;
+          modules = [
+            ./minimal.nix
+          ];
+      };
+    };
+
     templates.default = {
       path = ./.;
       description = "Template";
