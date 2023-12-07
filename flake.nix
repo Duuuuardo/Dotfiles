@@ -32,32 +32,33 @@
       traveller =
       let system = "x86_64-linux";
       in nixpkgs.lib.nixosSystem {
-	specialArgs = {
+	    specialArgs = {
           username = "eduardo";
           hostname = "traveller";
           hyprlandConfig = "laptop";
           nvidia_bool = "enabled";
-	  inherit system;
-        } // attrs;        
+	    inherit system;
+      } // attrs;        
         modules = [
           ./.
           ./modules/virtualization
         ];
       };
 
-      virtualized = 
+      virtualized  =
       let system = "x86_64-linux";
       in nixpkgs.lib.nixosSystem {
-        system = system;
-        specialArgs = {
+	    specialArgs = {
           username = "nixos";
           hostname = "virtualized";
           hyprlandConfig = "laptop";
           nvidia_bool = "disabled";
-          } // attrs;
-          modules = [
-            ./.
-          ];
+	    inherit system;
+      } // attrs;        
+        modules = [
+          ./.
+          ./modules/virtualization
+        ];
       };
     };
 
