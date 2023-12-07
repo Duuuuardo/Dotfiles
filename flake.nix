@@ -56,7 +56,7 @@
           modules = [
             ./minimal.nix
           ];
-      }
+      };
     };
     templates.default = {
       path = ./.;
