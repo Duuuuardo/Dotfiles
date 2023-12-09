@@ -1,7 +1,7 @@
 { hostname, username, ... }:
 {
   networking = {
-    networkmanager.enable = true;
+    networkmanager.enable = false;
     hostName = "${hostname}";
     extraHosts = ''
 	10.0.0.195 nixbox
