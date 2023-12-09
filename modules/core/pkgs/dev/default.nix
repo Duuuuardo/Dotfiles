@@ -1,25 +1,17 @@
-{ pkgs, ... }:
-with pkgs; [
-  cargo
-  gcc
-  cmake
-  gnumake
-  go
-  php
-  rustc
-  fzf
-  bun
-  ruby
-  jdk
-  nix-melt
-  nix-prefetch-git
-  nixpacks
-  nodejs_20
-  powershell
-  postgresql_15
-  python312
-  railway
-  thokr
-  zig
-]
-
+{ pkgs, home-manager, username, ... }:
+{
+  imports = [ 
+    ./c
+    ./clojure
+    ./compilers
+    ./dart
+    ./elixir
+    ./go
+    ./js
+    ./lua
+    ./nix
+    ./python
+    ./rust
+    ./packages.nix
+  ];
+}
