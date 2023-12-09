@@ -5,6 +5,8 @@
     ./cava
     ./fonts
     ./kitty
+    ./vim
+    ./git
     ./starship
     ./tmux
    ];
@@ -18,5 +20,6 @@
    environment.systemPackages = with pkgs; [
      btop
      nitch
+     nvim
    ];
 }
