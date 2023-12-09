@@ -37,21 +37,6 @@
           ./modules/virtualization
         ];
       };
-
-      live-image = 
-      let system = "x86_64-linux";
-      in nixpkgs.lib.nixosSystem {
-        system = system;
-        specialArgs = {
-          username = "nixos";
-          hostname = "live-image";
-          hyprlandConfig = "laptop";
-          nvidia_bool = "disabled";
-          } // attrs;
-          modules = [
-            ./.
-          ];
-      };
     };
 
     templates.default = {
