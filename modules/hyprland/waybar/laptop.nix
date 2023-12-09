@@ -15,7 +15,7 @@
 	"on-click": "/run/current-system/sw/bin/wofi --show drun"
 },
 	"hyprland/workspaces": {
-	"format": "{name} {icon}",
+	"format": "{icon}",
 	"tooltip": false,
 	"all-outputs": true,
 	"format-icons": {
