@@ -13,7 +13,11 @@ with pkgs; [
   bat
   most
   git
+  glib # C library of programming buildings blocks
+  glibc
+  exa
   curl
   sqlite
+  figma-linux
   yubikey-manager 
 ]
