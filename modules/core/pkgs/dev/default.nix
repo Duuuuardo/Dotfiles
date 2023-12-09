@@ -7,6 +7,7 @@ with pkgs; [
   go
   php
   rustc
+  fzf
   bun
   ruby
   jdk

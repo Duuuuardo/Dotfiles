@@ -7,7 +7,13 @@ with pkgs; [
   playerctl
   ranger
   ripgrep
+  usbutils
   unzip
   wget
+  bat
+  most
+  git
+  curl
+  sqlite
   yubikey-manager 
 ]

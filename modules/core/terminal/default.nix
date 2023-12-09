@@ -4,18 +4,10 @@
     ./bash
     ./cava
     ./fonts
-    ./foot
     ./kitty
-    ./nvim
     ./starship
     ./tmux
    ];
-
-   # ---- Home Configuration ----
-   home-manager.users.${username} = { pkgs, ... }: {
-     programs.git.enable = true;
-     programs.vim.enable = true;
-   };
 
    # ---- System Configuration ----
    programs = {
@@ -26,6 +18,5 @@
    environment.systemPackages = with pkgs; [
      btop
      nitch
-     vim
    ];
 }

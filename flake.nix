@@ -15,18 +15,12 @@
 	inputs.darwin.follows = "";
     };
 
-    nixvim = {
-      url = "github:duuuuardo/nixvim";
-    };
-
     hyprland = {
       url = "github:hyprwm/hyprland";
     };
   };
   
   outputs = { self, nixpkgs, ... } @ attrs: { 
-
-
     nixosConfigurations = {
       traveller =
       let system = "x86_64-linux";
@@ -44,19 +38,19 @@
         ];
       };
 
-      virtualized  =
+      live-image = 
       let system = "x86_64-linux";
       in nixpkgs.lib.nixosSystem {
-	    specialArgs = {
+        system = system;
+        specialArgs = {
           username = "nixos";
-          hostname = "virtualized";
+          hostname = "live-image";
           hyprlandConfig = "laptop";
           nvidia_bool = "disabled";
-	    inherit system;
-      } // attrs;        
-        modules = [
-          ./.
-        ];
+          } // attrs;
+          modules = [
+            ./.
+          ];
       };
     };
 

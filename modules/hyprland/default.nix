@@ -40,7 +40,7 @@
       };
     };
   };
-  
+
   xdg.portal.config = {
     common = {
       default = [ "xdph" "gtk" ];

@@ -19,8 +19,7 @@ wallpaper = eDP-1, ~/.config/backgrounds/232136.png
 
 
       ".config/hypr/hyprland.conf".text = ''
-#monitor=edp-1,3840 x 2160,auto,auto
-monitor=,preferred,auto,auto
+monitor=,1920x1080,auto,auto
 
 exec-once = hyprpaper & waybar & mako & lxqt-policykit-agent & dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
@@ -65,16 +64,20 @@ $w4 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
 $w5 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
 $w6 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
 $w7 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
+$w8 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
+$w9 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
+$w0 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
 
-$wA = Alpha
-$wB = Bravo
-$wC = Charlie
-$wD = Delta
-$wE = Echo
-$wF = Foxtrot
-$wG = Golf
-$wH = Hotel
-$wI = are ya lost bud
+$wA = 1
+$wB = 2
+$wC = 3
+$wD = 4
+$wE = 5
+$wF = 6
+$wG = 7
+$wH = 8
+$wI = 9
+$wJ = 0
 
 # for all categories, see https://wiki.hyprland.org/configuring/variables/
 input {
@@ -174,56 +177,29 @@ workspace=name:$wF,monitor:eDP-1
 workspace=name:$wG,monitor:eDP-1
 workspace=name:$wH,monitor:eDP-1
 workspace=name:$wI,monitor:eDP-1
+workspace=name:$wJ,monitor:eDP-1
 
 bind = $mainMod, 1, workspace, name:$wA
-bind = $mainMod, 1, exec,$w1
-
 bind = $mainMod, 2, workspace, name:$wB
-bind = $mainMod, 2, exec,$w2
-
 bind = $mainMod, 3, workspace, name:$wC
-bind = $mainMod, 3, exec,$w3
-
 bind = $mainMod, 4, workspace, name:$wD
-bind = $mainMod, 4, exec,$w4
-
 bind = $mainMod, 5, workspace, name:$wE
-bind = $mainMod, 5, exec,$w5
-
 bind = $mainMod, 6, workspace, name:$wF
-bind = $mainMod, 6, exec,$w6
-
 bind = $mainMod, 7, workspace, name:$wG
-bind = $mainMod, 7, exec,$w7
-
 bind = $mainMod, 8, workspace, name:$wH
-
 bind = $mainMod, 9, workspace, name:$wI
+bind = $mainMod, 0, workspace, name:$wH
 
 bind = $mainMod SHIFT, 1, movetoworkspace,name:$wA
-bind = $mainMod SHIFT, 1, exec,$w1
-
 bind = $mainMod SHIFT, 2, movetoworkspace,name:$wB
-bind = $mainMod SHIFT, 2, exec,$w2
-
 bind = $mainMod SHIFT, 3, movetoworkspace,name:$wC
-bind = $mainMod SHIFT, 3, exec,$w3
-
 bind = $mainMod SHIFT, 4, movetoworkspace,name:$wD
-bind = $mainMod SHIFT, 4, exec,$w4
-
 bind = $mainMod SHIFT, 5, movetoworkspace,name:$wE
-bind = $mainMod SHIFT, 5, exec,$w5
-
 bind = $mainMod SHIFT, 6, movetoworkspace,name:$wF
-bind = $mainMod SHIFT, 6, exec,$w6
-
 bind = $mainMod SHIFT, 7, movetoworkspace,name:$wG
-bind = $mainMod SHIFT, 7, exec,$w7
-
 bind = $mainMod SHIFT, 8, movetoworkspace,name:$wH
-
-bind = $mainMod SHIFT, 9, movetoworkspace, name:$wI
+bind = $mainMod SHIFT, 9, movetoworkspace,name:$wI
+bind = $mainMod SHIFT, 0, movetoworkspace,name:$wJ
 
 bind = $mainMod, mouse_down, workspace, e+1
 bind = $mainMod, mouse_up, workspace, e-1
