@@ -23,9 +23,9 @@ enable_network 0
 4. Create a new partition > `n`
 5. Create the following structure at minimum
 ```
-|-/dev/sda1 efi   > t > 1
+|-/dev/sda1 efi > t > 1
 |-/dev/sda2 linux-filesystem 
-|-/dev/sda3 (optional)swap t > 19
+|-/dev/sda3 swap t > 19
 ```
 6. Write changes to disk > `w`
 ## Format
@@ -52,6 +52,7 @@ enable_network 0
 	
 	boot.loader.systemd-boot.enalbe = true;
 	boot.loader.efi.canTouchEfiVariables = true;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 	networking.wireless.enable = true;
 	networking.wireless.interface = [ "interface" ];

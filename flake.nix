@@ -27,8 +27,7 @@
   outputs = { self, nixpkgs, ... } @ attrs: { 
 
 
-    nixosConfigurations = { 
- 
+    nixosConfigurations = {
       traveller =
       let system = "x86_64-linux";
       in nixpkgs.lib.nixosSystem {
