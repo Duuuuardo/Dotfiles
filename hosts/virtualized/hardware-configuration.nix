@@ -8,17 +8,18 @@
     boot.initrd.kernelModules = [];
     boot.kernelModules = [];
     boot.extraModulePackages = [];
-
     fileSystems."/" =
-    { device "/dev/disk/by-uuid/28b7aa44-1b34-4e45-b0b5-04e8ca48625a";
-      fsType = "ext4";
-    };
-    fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/45DD-D342";
-      fsType="vfat";
-    };
+     { device = "/dev/disk/by-uuid/28b7aa44-1b34-4e45-b0b5-04e8ca48625a";
+       fsType = "ext4";
+     };
 
-    swapDevices = [ { device = "/deu/disk/by-label/swap"; } ];
+    fileSystems."/boot" =
+     { device = "/dev/disk/by-uuid/45DD-D342";
+       fsType = "vfat";
+     };
+
+
+    swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
     networking.useDHCP = lib.mkDefault true;
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     virtualisation.virtualbox.guest.enable = true;
