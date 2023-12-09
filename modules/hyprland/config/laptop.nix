@@ -3,9 +3,8 @@
   home-manager.users.${username} =  { ... }: {
     home.file = {
       ".config/hypr/hyprpaper.conf".text = ''
-preload = ~/.config/backgrounds/232136.png
-preload = ~/.config/backgrounds/1A1C23.png
-wallpaper = eDP-1, ~/.config/backgrounds/232136.png
+preload = ~/.config/backgrounds/moon.jpg
+wallpaper = eDP-1, ~/.config/backgrounds/moon.jpg
       '';  
     
       ".config/hypr/vol.sh" = {
@@ -22,7 +21,7 @@ wallpaper = eDP-1, ~/.config/backgrounds/232136.png
 monitor=,1920x1080,auto,auto
 
 exec-once = hyprpaper & waybar & mako & lxqt-policykit-agent & dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-
+exec-onde = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/moon.jpg"
 # some default env vars.
 env=BROWSER, firefox
 env=XCURSOR_SIZE,24
@@ -34,18 +33,18 @@ env=QT_QPA_PLATFORM,wayland
 
 $mainMod = SUPER
 
-bind = $mainMod, q, exec, foot 
-bind = $mainMod, w, killactive, 
+bind = $mainMod, Return, exec, kitty 
+bind = $mainMod, q, killactive, 
 bind = $mainMod, f, fullscreen, 1
 bind = $mainMod, d, exec, pavucontrol
-bind = $mainMod, m, exit, 
+bind = $mainMod shift, q, exit, 
 bind = $mainMod, e, exec, kitty -e ranger
 bind = $mainMod, b, exec, foot -e btop
 bind = $mainMod, v, togglefloating, 
 bind = $mainMod, r, exec, wofi --show drun
 bind = $mainMod, p, pseudo, # dwindle
 bind = $mainMod, j, togglesplit, # dwindle
-bind = $mainMod, 0, exec, swaylock
+bind = $mainMod, l, exec, swaylock
 bind = $mainMod, o, exec, bash -i ~/.config/hypr/toggle_waybar.sh
 bind = $mainMod, s, exec, grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +'%Y%m%d_%H%M%S').png
 
@@ -56,17 +55,6 @@ bind = ,XF86AudioRaiseVolume, exec, ~/.config/hypr/vol.sh --up
 bind = ,xF86AudioPlay, exec, playerctl play-pause
 bind = ,xF86AudioNext, exec, playerctl next
 bind = ,xF86AudioPrev, exec, playerctl previous
-
-$w1 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
-$w2 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/1A1C23.png"
-$w3 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
-$w4 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
-$w5 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
-$w6 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
-$w7 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
-$w8 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
-$w9 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
-$w0 = hyprctl hyprpaper wallpaper "eDP-1, ~/.config/backgrounds/232136.png"
 
 $wA = 1
 $wB = 2
@@ -189,6 +177,9 @@ bind = $mainMod, 7, workspace, name:$wG
 bind = $mainMod, 8, workspace, name:$wH
 bind = $mainMod, 9, workspace, name:$wI
 bind = $mainMod, 0, workspace, name:$wH
+bind = $mainMod ALT, up, workspace, e+1
+bind = $mainMod ALT, down, workspace, e-1
+
 
 bind = $mainMod SHIFT, 1, movetoworkspace,name:$wA
 bind = $mainMod SHIFT, 2, movetoworkspace,name:$wB
@@ -200,6 +191,14 @@ bind = $mainMod SHIFT, 7, movetoworkspace,name:$wG
 bind = $mainMod SHIFT, 8, movetoworkspace,name:$wH
 bind = $mainMod SHIFT, 9, movetoworkspace,name:$wI
 bind = $mainMod SHIFT, 0, movetoworkspace,name:$wJ
+
+bind = $mainMod, grave, togglespecialworkspace,
+bind = $mainMod SHIFT, grave, movetoworkspace, special
+
+bind = $mainMod CTRL, left, resizeactive, -20 0
+bind = $mainMod CTRL, right, resizeactive, 20 0
+bind = $mainMod CTRL, up, resizeactive, 0 -20
+bind = $mainMod CTRL, down, resizeactive, 0 20
 
 bind = $mainMod, mouse_down, workspace, e+1
 bind = $mainMod, mouse_up, workspace, e-1
