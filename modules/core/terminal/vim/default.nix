@@ -6,8 +6,6 @@
     };
   };
   environment.systemPackages = with pkgs; [
-     lazygit
-     lazydocker
      prettierd
      eslint_d
      nvim
