@@ -7,6 +7,7 @@ with pkgs; [
   playerctl
   ranger
   ripgrep
+  fd
   usbutils
   unzip
   wget
