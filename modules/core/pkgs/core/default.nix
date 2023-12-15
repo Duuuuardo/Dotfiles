@@ -6,17 +6,12 @@ with pkgs; [
   pavucontrol
   playerctl
   ranger
-  ripgrep
-  fd
   usbutils
   unzip
   wget
-  bat
-  most
   git
   glib # C library of programming buildings blocks
   glibc
-  exa
   curl
   sqlite
   figma-linux
