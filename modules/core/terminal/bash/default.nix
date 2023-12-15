@@ -62,7 +62,7 @@
 	gt = "git tag";
 	gts = "git tag -s";
 
-	vim = "lvim";
+	vim = "nvim";
 	n = "nvim";
 	t = "tmux";
 	r = "ranger";
