@@ -22,6 +22,16 @@
      nitch
      eza
      fzf
+     micro
+     fd
+     ripgrep
+     most
+     bat
+     thefuck
+     exa
+     zoxide
+     entr
+     httpie
      ghq
    ];
 }
