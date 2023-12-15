@@ -27,7 +27,6 @@
      ripgrep
      most
      bat
-     thefuck
      exa
      zoxide
      entr
