@@ -20,6 +20,8 @@
    environment.systemPackages = with pkgs; [
      btop
      nitch
-     nvim
+     eza
+     fzf
+     ghq
    ];
 }
