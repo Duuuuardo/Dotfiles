@@ -15,8 +15,10 @@
     shellAliases = {
 	cp = "cp -ia";
 	mv = "mv -i";
-
-	b = "btop";
+  ls = "exa";
+  ll = "exa -alh";
+  tree = "exa --tree";
+  b = "btop";
 	c = "clear";
 	e = "exit";
 
