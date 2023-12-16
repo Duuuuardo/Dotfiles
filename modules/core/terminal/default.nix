@@ -27,6 +27,8 @@
      ripgrep
      most
      bat
+     lazygit
+     lazydocker
      exa
      zoxide
      entr
