@@ -1,5 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 {  
+  home-manager.users.${username} =  { ... }: {
+    home.file = {
+      ".config/tmux".source = ./config;
+    };
+  };
+
   # ---- System Configuration ----
   programs = {
     tmux = {
